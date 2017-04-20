@@ -1,10 +1,7 @@
-package com.onechurch.model.springjpa;
+package com.onechurch.process.persistence.springjpa;
 
-import com.onechurch.domain.User;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.onechurch.process.domain.User;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 /**
  * Created by dc-user on 4/20/2017.
@@ -22,7 +19,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
  */
 
 //@RepositoryRestResource(exported = false) //not exposed
-public interface UserDAO extends CrudRepository<User, Long> {
+public interface UserPersistance extends CrudRepository<User, Long> {
 
     //@Query("select u from User u where u.name = ?1")
     User findByName(/*@Param("name")*/ String name);

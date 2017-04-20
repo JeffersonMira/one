@@ -1,8 +1,5 @@
-package com.onechurch.controller;
+package com.onechurch.process.controller;
 
-import com.onechurch.domain.Greeting;
-import com.onechurch.domain.User;
-import com.onechurch.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;

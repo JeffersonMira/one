@@ -1,14 +1,12 @@
-package com.onechurch.service;
+package com.onechurch.process.service;
 
-import com.onechurch.domain.User;
-import com.onechurch.model.springjpa.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
 
-    private UserDAO userDao;
+    private UserDao userDao;
 
     @Autowired
     public UserService(UserDAO userDao){

@@ -1,4 +1,4 @@
-package com.onechurch.domain;
+package com.onechurch.process.domain;
 
 
 import lombok.AllArgsConstructor;

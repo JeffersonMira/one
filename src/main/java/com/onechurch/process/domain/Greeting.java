@@ -1,4 +1,4 @@
-package com.onechurch.domain;
+package com.onechurch.process.domain;
 
 /**
  * Created by dc-user on 4/20/2017.

@@ -1,11 +1,10 @@
-package com.onechurch.model.springjpa;
+package com.onechurch.process.persistence.springjpa;
 
-import com.onechurch.domain.User;
+import com.onechurch.process.domain.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  * Created by dc-user on 4/20/2017.
@@ -14,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class UserDAOTEst {
 
     @Autowired
-    private UserDAO uDao;
+    private UserPersistance uDao;
 
     @Test
     public void saveUserTest(){

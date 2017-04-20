@@ -1,7 +1,7 @@
 package com.onechurch;
 
-import com.onechurch.domain.User;
-import com.onechurch.service.UserService;
+import com.onechurch.process.domain.User;
+import com.onechurch.process.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -23,7 +23,6 @@ public class OnefoursquareApplication implements CommandLineRunner{
 	public static void main(String[] args) {
 		SpringApplication.run(OnefoursquareApplication.class, args);
 	}
-
 
 	@Override
 	public void run(String... strings) throws Exception {

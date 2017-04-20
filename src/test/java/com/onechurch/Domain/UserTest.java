@@ -1,6 +1,6 @@
 package com.onechurch.Domain;
 
-import com.onechurch.domain.User;
+import com.onechurch.process.domain.User;
 import org.junit.Test;
 
 /**
