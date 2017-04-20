@@ -21,6 +21,12 @@ public class UserService {
         }
     }
 
+    public void deleteUser(Long id){
+        if(userDao.exists(id)){
+            userDao.delete(id);
+        }
+    }
+
     public Iterable<User> getAllTheMotherF(){
         return userDao.findAll();
     }

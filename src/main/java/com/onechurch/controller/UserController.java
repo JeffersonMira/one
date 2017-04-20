@@ -5,6 +5,7 @@ import com.onechurch.domain.User;
 import com.onechurch.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Created by dc-user on 4/20/2017.
  */
+@RequestMapping("/user")
 @RestController
 public class UserController {
     private UserService userService;
@@ -40,5 +42,16 @@ public class UserController {
         return new Greeting(1,value);
     }
 
+    @RequestMapping(path="/delete/{id}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void delete(@PathVariable(name="id") long id){
+        userService.deleteUser(id);
+    }
+
+    @RequestMapping(path="/findall")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public Iterable<User>  findAll(){
+        return userService.getAllTheMotherF();
+    }
 
 }
