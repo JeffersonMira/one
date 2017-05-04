@@ -17,9 +17,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @ComponentScan("com.onechurch")
 class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    //Not working for anything
-//    @Autowired
-//    private AuthenticationEntryPoint authEntryPoint;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -32,11 +29,6 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .csrf().disable();
-
-//        http.csrf().disable().authorizeRequests()
-//                .anyRequest().authenticated()
-//                .and().httpBasic()
-//                .authenticationEntryPoint(authEntryPoint);
 
 //        http
 //                .authorizeRequests()
