@@ -1,6 +1,7 @@
 package com.onechurch.process.config.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,20 +14,58 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @EnableWebSecurity
 @Configuration
+@ComponentScan("com.onechurch")
 class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    //Not working for anything
+//    @Autowired
+//    private AuthenticationEntryPoint authEntryPoint;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().anyRequest().fullyAuthenticated().and().
-                httpBasic().and().
-                csrf().disable();
+
+        http
+                .authorizeRequests()
+                .antMatchers("/public/**").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .httpBasic()
+                .and()
+                .csrf().disable();
+
+//        http.csrf().disable().authorizeRequests()
+//                .anyRequest().authenticated()
+//                .and().httpBasic()
+//                .authenticationEntryPoint(authEntryPoint);
+
+//        http
+//                .authorizeRequests()
+//                .antMatchers("/assets/**").permitAll()
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin()
+//                    .usernameParameter("j_username")
+//                    .passwordParameter("j_password")
+//                    .loginPage("/login")
+//                    .defaultSuccessUrl("/", true)
+//                    .successHandler(customAuthenticationSuccessHandler)
+//                    .permitAll()
+//                .and()
+//                    .logout()
+//                    .logoutUrl("/logout")
+//                    .invalidateHttpSession(true)
+//                    .logoutSuccessUrl("/")
+//                    .deleteCookies("JSESSIONID")
+//                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+//                .and()
+//                    .csrf();
     }
 
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
-        auth.inMemoryAuthentication()
-                .withUser("barry").password("password").roles("USER");
-    }
+//    @Autowired
+//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
+//        auth.inMemoryAuthentication()
+//                .withUser("barry").password("password").roles("USER");
+//    }
 
 }
