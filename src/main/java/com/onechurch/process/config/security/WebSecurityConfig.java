@@ -13,6 +13,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
  * Created by jeffe on 03/05/2017.
  */
 //http://stackoverflow.com/questions/34453693/how-to-authenticate-login-logout-in-restful-web-application-in-spring
+//http://www.baeldung.com/securing-a-restful-web-service-with-spring-security
 @EnableWebSecurity
 @Configuration
 @ComponentScan("com.onechurch")
