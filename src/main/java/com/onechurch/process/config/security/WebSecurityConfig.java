@@ -1,6 +1,7 @@
 package com.onechurch.process.config.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -8,6 +9,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
 
 /**
  * Created by jeffe on 03/05/2017.
@@ -19,46 +25,31 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @ComponentScan("com.onechurch")
 class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    //CORS!!!!!
+    //https://spring.io/understanding/CORS
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.addAllowedOrigin("*");
+        configuration.addAllowedMethod("*");
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                    .antMatchers("/public/**").permitAll() // allow any user to access public/
-                    .anyRequest().fullyAuthenticated()  //for any other, it is necessary to authenticate
+//                    .antMatchers("/public/**").permitAll() // allow any user to access public/
+//                    .anyRequest().fullyAuthenticated()  //for any other, it is necessary to authenticate
+                        .anyRequest().permitAll()
                 .and()
                     .httpBasic()
                 .and()
-                    .logout()
-                    .logoutUrl("/logout")
-                    .invalidateHttpSession(true)
-                    .logoutSuccessUrl("/")
-                    .deleteCookies("JSESSIONID")
-                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                    .cors()
                 .and()
-                .csrf();
-
-//        http
-//                .authorizeRequests()
-//                .antMatchers("/assets/**").permitAll()
-//                .anyRequest().authenticated()
-//                .and()
-//                .formLogin()
-//                    .usernameParameter("j_username")
-//                    .passwordParameter("j_password")
-//                    .loginPage("/login")
-//                    .defaultSuccessUrl("/", true)
-//                    .successHandler(customAuthenticationSuccessHandler)
-//                    .permitAll()
-//                .and()
-//                    .logout()
-//                    .logoutUrl("/logout")
-//                    .invalidateHttpSession(true)
-//                    .logoutSuccessUrl("/")
-//                    .deleteCookies("JSESSIONID")
-//                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-//                .and()
-//                    .csrf();
+                    .csrf().disable();
     }
 
 

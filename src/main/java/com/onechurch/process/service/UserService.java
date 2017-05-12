@@ -16,7 +16,15 @@ public class UserService {
     }
 
     public void createUser(User user){
-        if(!userPersistance.exists(user.getId())){
+        User userPersisted = userPersistance.findByName(user.getName());
+
+        if(null == userPersisted){
+            userPersistance.save(user);
+        }
+    }
+
+    public void updateUser(User user){
+        if(userPersistance.exists(user.getId())){
             userPersistance.save(user);
         }
     }
@@ -29,6 +37,10 @@ public class UserService {
 
     public Iterable<User> getAllTheMotherF(){
         return userPersistance.findAll();
+    }
+
+    public User findUserById(Long id){
+        return userPersistance.findOne(id);
     }
 
     public long total(){

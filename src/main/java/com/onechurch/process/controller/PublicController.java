@@ -24,7 +24,10 @@ public class PublicController {
         super();
     }
 
-    @RequestMapping(path="/greeting" , method = RequestMethod.GET)
+    @RequestMapping(path="/greeting",
+            method = RequestMethod.GET,
+            produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
     public Greeting greeting(@RequestParam(value = "name", defaultValue = "Greeting") String value){
         return new Greeting(1,value);
     }

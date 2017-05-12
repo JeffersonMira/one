@@ -13,9 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * Created by dc-user on 4/20/2017.
- */
+
+// http://www.restapitutorial.com/lessons/httpmethods.html
 @RequestMapping("/user")
 @RestController
 public class UserController {
@@ -30,28 +29,30 @@ public class UserController {
         super();
     }
 
-    @RequestMapping(path="/create" , method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public void createUser(@RequestBody User user){
         userService.createUser(user);
     }
 
-
-    @RequestMapping(path="/greeting" , method = RequestMethod.GET)
-    public Greeting greeting(@RequestParam(value = "name", defaultValue = "Greeting") String value){
-        return new Greeting(1,value);
-    }
-
-    @RequestMapping(path="/delete/{id}", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @RequestMapping(path="/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable(name="id") long id){
         userService.deleteUser(id);
     }
 
-    @RequestMapping(path="/findall")
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @RequestMapping(method = RequestMethod.GET)
     public Iterable<User>  findAll(){
         return userService.getAllTheMotherF();
+    }
+
+    @RequestMapping(path="/{id}", method = RequestMethod.GET)
+    public User  findById(@PathVariable(name="id") long id){
+        return userService.findUserById(id);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT)
+    public void updateUser(@RequestBody User user){
+        userService.updateUser(user);
     }
 
 }
