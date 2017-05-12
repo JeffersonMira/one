@@ -1,7 +1,7 @@
 package com.onechurch;
 
 import com.onechurch.process.domain.User;
-import com.onechurch.process.service.UserService;
+import com.onechurch.process.service.Impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -18,7 +18,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class OnefoursquareApplication implements CommandLineRunner{
 
 	@Autowired
-	private UserService userService;
+	private UserServiceImpl userServiceImpl;
 
 	public static void main(String[] args) {
 		SpringApplication.run(OnefoursquareApplication.class, args);
@@ -26,9 +26,9 @@ public class OnefoursquareApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... strings) throws Exception {
-		userService.createUser(new User(1L, "Jefferson", "abc"));
-		userService.createUser(new User(2L, "Jack", "abc"));
-		userService.createUser(new User(3L, "Joe", "abc"));
-		userService.createUser(new User(4L, "Moe", "abc"));
+		userServiceImpl.createUser(new User(1L, "Jefferson", "abc"));
+		userServiceImpl.createUser(new User(2L, "Jack", "abc"));
+		userServiceImpl.createUser(new User(3L, "Joe", "abc"));
+		userServiceImpl.createUser(new User(4L, "Moe", "abc"));
 	}
 }
