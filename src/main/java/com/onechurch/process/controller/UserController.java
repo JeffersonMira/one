@@ -4,6 +4,7 @@ import com.onechurch.process.domain.User;
 import com.onechurch.process.service.Impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 // http://www.restapitutorial.com/lessons/httpmethods.html
-@RequestMapping("/user")
+@RequestMapping("/users")
 @RestController
 public class UserController {
     private UserServiceImpl userServiceImpl;
@@ -34,6 +35,7 @@ public class UserController {
     }
 
     @RequestMapping(path="/{id}", method = RequestMethod.DELETE)
+    @PreAuthorize("hasRole('ADMIN')")
     public void delete(@PathVariable(name="id") long id){
         userServiceImpl.deleteUser(id);
     }

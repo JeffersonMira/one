@@ -1,5 +1,6 @@
 package com.onechurch;
 
+import com.onechurch.process.config.security.PasswordEncoder;
 import com.onechurch.process.domain.User;
 import com.onechurch.process.service.Impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * RESTful API HATEOAS - Hypermedia AS the Engine of Application State:
- * 1) service should provide navegation data
+ * 1) service should provide navigation data
  * 2) documentation
  * 3) Hypermedia driven out of box
  */
@@ -26,9 +27,10 @@ public class OnefoursquareApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... strings) throws Exception {
-		userServiceImpl.createUser(new User(1L, "Jefferson", "abc"));
-		userServiceImpl.createUser(new User(2L, "Jack", "abc"));
-		userServiceImpl.createUser(new User(3L, "Joe", "abc"));
-		userServiceImpl.createUser(new User(4L, "Moe", "abc"));
+		String password = PasswordEncoder.encode("abc123");
+		userServiceImpl.createUser(new User(1L,"Jefferson", "JeffMira", password, true));
+		userServiceImpl.createUser(new User(2L, "Jack", "JackDaniels", password, false));
+		userServiceImpl.createUser(new User(3L, "Joe", "Joe Molina", password, false));
+		userServiceImpl.createUser(new User(4L, "Moe", "Moes pub", password, true));
 	}
 }

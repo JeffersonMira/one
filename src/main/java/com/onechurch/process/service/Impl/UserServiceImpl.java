@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService{
     }
 
     public void createUser(User user){
-        User userPersisted = userPersistance.findByName(user.getName());
+        User userPersisted = userPersistance.findByUsername(user.getUsername());
 
         if(null == userPersisted){
             userPersistance.save(user);
@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService{
         return userPersistance.count();
     }
 
-    public User findByName(String name){
-        return userPersistance.findByName(name);
+    public User findByName(String username){
+        return userPersistance.findByUsername(username);
     }
 }

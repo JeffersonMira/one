@@ -20,11 +20,11 @@ public class UserDAOTest {
     @Test
     public void saveUserTest(){
         User u = new User();
-        u.setName("Test1");
+        u.setUsername("Test1");
         u.setPassword("Test1");
         uDao.save(u);
 
-        User userFound = uDao.findByName("Test1");
+        User userFound = uDao.findByUsername("Test1");
 
         System.out.println(userFound);
     }

@@ -10,7 +10,7 @@ public class UserTest {
 
     @Test
     public void shouldCreateUserObject(){
-        User u = new User(1L, "Jeffeson", "abc123");
+        User u = new User(1L, "Jeffeson", "JeffersonMira", "abc123", false);
         System.out.print(u.toString());
     }
 

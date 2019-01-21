@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Created by dc-user on 4/20/2017.
  */
-@RequestMapping("/public")
+@RequestMapping("/")
 @RestController
 public class PublicController {
 
@@ -19,9 +19,7 @@ public class PublicController {
         super();
     }
 
-    @RequestMapping(path="/greeting",
-            method = RequestMethod.GET,
-            produces = "application/json")
+    @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
     public Greeting greeting(@RequestParam(value = "name", defaultValue = "Greeting") String value){
         return new Greeting(1,value);

@@ -24,6 +24,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 @Qualifier("userPersistance")
 public interface UserPersistance extends JpaRepository<User, Long> {
 
-    //@Query("select u from User u where u.name = ?1")
-    User findByName(/*@Param("name")*/ String name);
+    //@Query("select u from User u where u.name = ?")
+    User findByUsername(/*@Param("name")*/ String username);
 }
