@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 // http://www.restapitutorial.com/lessons/httpmethods.html
-@RequestMapping("/users")
+@RequestMapping("v1")
 @RestController
 public class UserController {
     private UserServiceImpl userServiceImpl;
@@ -28,29 +28,29 @@ public class UserController {
         super();
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(path="admin/users", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public void createUser(@RequestBody User user){
         userServiceImpl.createUser(user);
     }
 
-    @RequestMapping(path="/{id}", method = RequestMethod.DELETE)
-    @PreAuthorize("hasRole('ADMIN')")
+    @RequestMapping(path="admin/users/{id}", method = RequestMethod.DELETE)
+//    @PreAuthorize("hasRole('ADMIN')")
     public void delete(@PathVariable(name="id") long id){
         userServiceImpl.deleteUser(id);
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(path="users", method = RequestMethod.GET)
     public Iterable<User>  findAll(){
         return userServiceImpl.getAllTheMotherF();
     }
 
-    @RequestMapping(path="/{id}", method = RequestMethod.GET)
+    @RequestMapping(path="users/{id}", method = RequestMethod.GET)
     public User  findById(@PathVariable(name="id") long id){
         return userServiceImpl.findUserById(id);
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
+    @RequestMapping(path="admin/users", method = RequestMethod.PUT)
     public void updateUser(@RequestBody User user){
         userServiceImpl.updateUser(user);
     }
