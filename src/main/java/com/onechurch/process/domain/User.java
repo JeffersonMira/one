@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by dc-user on 4/20/2017.
@@ -40,7 +41,7 @@ public class User extends AbstractEntity {
     @Column
     private String password;
 
-    @NotEmpty
+    @NotNull
     private boolean admin;
 
 }
