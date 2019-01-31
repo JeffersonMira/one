@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -22,11 +23,12 @@ import java.util.Arrays;
  * Created by jeffe on 03/05/2017.
  */
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true) //it is necessary to make the @PreAuthorize works
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+        //it is necessary to make the @PreAuthorize works
 class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-   @Autowired
-   private CustomUserDetailsService customUserDetailsService;
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
 
     //CORS!!!!!
     //https://spring.io/understanding/CORS
@@ -44,18 +46,40 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 //    }
 
 
-   @Override
-   protected void configure(HttpSecurity http) throws Exception {
-      http.authorizeRequests()
-//              .anyRequest()
-//              .authenticated()
-              .antMatchers("/*/users/**").hasRole("USER")
-              .antMatchers("/*/admin/**").hasRole("ADMIN")
-              .and()
-              .httpBasic() //Authentication is done sending user/password in the6 header
-              .and()
-              .csrf().disable();
-   }
+    //CONFIGURATION USED WHEN THE TOKEN IS NOT NECESSARY. IN THIS CASE ALL THE REQUESTS
+    //MUST SEND THE USER/PASSWORD IN THE HEADER.
+//   @Override
+//   protected void configure(HttpSecurity http) throws Exception {
+//      http.authorizeRequests()
+////              .anyRequest()
+////              .authenticated()             // this will disable the SpringSecurity
+//              .antMatchers("/*/users/**").hasRole("USER")
+//              .antMatchers("/*/admin/**").hasRole("ADMIN")
+//              .and()
+//              .httpBasic() //Authentication is done sending user/password in the6 header
+//              .and()
+//              .csrf().disable();
+//   }
+
+
+    /*
+    * Including the filters that crate and validate the tokens.
+    * Clients can call <application>/login passing the values as a json:
+    * { "username":"name",
+    *   "password":"password"
+    * }
+    * */
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.cors().and().csrf().disable().authorizeRequests()
+                .antMatchers(HttpMethod.GET, SecurityConstants.SIGN_UP_URL).permitAll()
+                .antMatchers("/*/users/**").hasRole("USER")
+                .antMatchers("/*/admin/**").hasRole("ADMIN")
+                .and()
+                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
+                .addFilter(new JWTAutorizationFilter(authenticationManager(), customUserDetailsService));
+
+    }
 
 //   Implementation used for inmemory authentication - not using the db data
 //   @Autowired
@@ -67,8 +91,8 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 //   }
 
 
-   @Override
-   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-      auth.userDetailsService(customUserDetailsService).passwordEncoder(new BCryptPasswordEncoder());
-   }
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(customUserDetailsService).passwordEncoder(new BCryptPasswordEncoder());
+    }
 }
